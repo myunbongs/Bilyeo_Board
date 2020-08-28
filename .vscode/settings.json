@@ -1,0 +1,22 @@
+{
+    "team.showWelcomeMessage": false,
+    "editor.formatOnSave": true,
+    "python.linting.pep8Enabled": true,
+    "python.linting.pylintPath": "/path/to/pylint",
+    "python.linting.pylintArgs": [
+        "--load-plugins",
+        "pylint_django"
+    ],
+    "python.linting.pylintEnabled": true,
+    "sqltools.connections": [
+        {
+            "database": "board",
+            "dialect": "MariaDB",
+            "name": "database-1",
+            "password": "123456789",
+            "port": 3306,
+            "server": "database-1.crfw1wfpcdfk.ap-northeast-2.rds.amazonaws.com",
+            "username": "admin"
+        }
+    ]
+}

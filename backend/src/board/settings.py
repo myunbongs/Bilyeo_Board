@@ -68,8 +68,16 @@ WSGI_APPLICATION = 'board.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME' : 'board',
+        'USER' : 'admin',
+        'PASSWORD' : '123456789',
+        'HOST' : 'database-1.crfw1wfpcdfk.ap-northeast-2.rds.amazonaws.com',
+        'PORT' : '3306',
+        #'OPTIONS' : {
+        #    'init_command' : 'SET sql_mode= "STRIC_TRANS_TABLES" '
+        #}
+    
     }
 }
 
