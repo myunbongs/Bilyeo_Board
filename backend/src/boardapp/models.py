@@ -25,3 +25,6 @@ class Comment(models.Model):
     content = models.TextField()
     comment_id = models.CharField(max_length=50)
     comment_date = models.DateTimeField('date published')
+
+    def __str__(self):
+        return self.content
