@@ -1,7 +1,7 @@
 from django.db import models
 
 class Board(models.Model):
-    # id = models.AutoField(primary_key=True)  # PK 자동증가 
+    id = models.AutoField(primary_key=True)  # PK 자동증가 
     title = models.CharField(max_length=120)
     content = models.TextField()
 
@@ -14,13 +14,12 @@ class User(models.Model):
     password = models.CharField(max_length=50)
 
 class Post(models.Model):
-    # id = models.AutoField(primary_key=True)  # PK 자동증가 
+    id = models.AutoField(primary_key=True)  # PK 자동증가 
     title = models.CharField(max_length=200)
     content = models.TextField()
     create_id = models.CharField(max_length=50)
     create_date = models.DateTimeField('date published')
    
-
     def __str__(self):
         return self.title
 
