@@ -1,26 +1,21 @@
 import React from "react";
-import { Card, Layout, Menu } from "antd";
+import { IoMdPower } from "react-icons/io";
+import "./Layout.scss";
 
-const { Header, Content } = Layout;
-
-const CustomLayOut = (props) => {
+const Layout = ({ children }) => {
   return (
-    <Layout className="layout">
-      <Header>
-        <div className="logo" />
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
-          <Menu.Item key="1">Home</Menu.Item>
-          <Menu.Item key="2">Post</Menu.Item>
-          <Menu.Item key="3">Login</Menu.Item>
-        </Menu>
-      </Header>
-      <Content style={{ padding: "0 50px" }}>
-        <Card>
-          <div className="site-layout-content">{props.children}</div>
-        </Card>
-      </Content>
-    </Layout>
+    <div className="Layout">
+      <header>
+        <div className="navbar">
+          BILYEO BOARD
+          <nav>
+            <IoMdPower />
+          </nav>
+        </div>
+      </header>
+      <div className="content">{children}</div>
+    </div>
   );
 };
 
-export default CustomLayOut;
+export default Layout;

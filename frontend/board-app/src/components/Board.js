@@ -1,28 +1,13 @@
 import React from "react";
-import { List } from "antd";
 
-const Board = (props) => {
+const Board = (board) => {
+  const { id, title, content } = board;
   return (
-    <List
-      itemLayout="vertical"
-      size="large"
-      pagination={{
-        onChange: (page) => {
-          console.log(page);
-        },
-        pageSize: 3,
-      }}
-      dataSource={props.data}
-      renderItem={(item) => (
-        <List.Item key={item.title}>
-          <List.Item.Meta
-            title={<a href={item.href}>{item.title}</a>}
-            description={item.description}
-          />
-          {item.content}
-        </List.Item>
-      )}
-    />
+    <div className="boardLayout">
+      <div className="id">{id}</div>
+      <div className="title">{title}</div>
+      <div className="content">{content}</div>
+    </div>
   );
 };
 

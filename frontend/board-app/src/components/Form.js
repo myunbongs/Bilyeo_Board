@@ -1,61 +1,87 @@
 import React from "react";
-import { Form, Input, Button } from "antd";
-import axios from "axios";
-
-const FormItem = Form.Item;
+import { post } from "axios";
+import "./Form.scss";
 
 class CustomForm extends React.Component {
-  handleFormSubmit = async (event, requestType, boardID) => {
-    event.preventDefault();
+  constructor(props) {
+    super(props);
 
-    const postObj = {
-      title: event.target.elements.title.value,
-      content: event.target.elements.content.value,
+    this.state = {
+      id: "",
+      title: "",
+      content: "",
     };
 
-    if (requestType === "post") {
-      await axios
-        .post("http://127.0.0.1:8000/api/create/", postObj)
-        .then((res) => {
-          if (res.status === 201) {
-            this.props.history.push(`/`);
-          }
-        });
-    } else if (requestType === "put") {
-      await axios
-        .put(`http://127.0.0.1:8000/api/${boardID}/update/`, postObj)
-        .then((res) => {
-          if (res.status === 200) {
-            this.props.history.push(`/`);
-          }
-        });
-    }
-  };
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+
+    this.handleValueChange = this.handleValueChange.bind(this);
+
+    this.addPost = this.addPost.bind(this);
+  }
+
+  handleFormSubmit(e) {
+    e.preventDefault();
+
+    this.addPost().then((response) => {
+      console.log(response.data);
+    });
+  }
+
+  handleValueChange(e) {
+    let nextState = {};
+
+    nextState[e.target.name] = e.target.value;
+
+    this.setState(nextState);
+  }
+
+  addPost() {
+    const url = "/api/create";
+
+    const formData = new FormData();
+
+    formData.append("id", this.state.id);
+
+    formData.append("title", this.state.title);
+
+    formData.append("content", this.state.content);
+
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
+
+    return post(url, formData, config);
+  }
 
   render() {
     return (
-      <div>
-        <Form
-          onSubmit={(event) =>
-            this.handleFormSubmit(
-              event,
-              this.props.requestType,
-              this.props.boardID
-            )
-          }
-        >
-          <FormItem label="Title">
-            <Input name="title" placeholder="Put a title here" />
-          </FormItem>
-          <FormItem label="Content">
-            <Input name="content" placeholder="Enter some content ..." />
-          </FormItem>
-          <FormItem>
-            <Button type="primary" htmlType="submit">
-              {this.props.btnText}
-            </Button>
-          </FormItem>
-        </Form>
+      <div className="formLayout">
+        <form onSubmit={this.handleFormSubmit}>
+          <div className="formTitle">
+            <h2>POST</h2>
+          </div>
+          TITLE:{" "}
+          <input
+            type="text"
+            class="titlebox"
+            value={this.state.title}
+            onChange={this.handleValueChange}
+          />
+          <br />
+          CONTENT:{" "}
+          <input
+            type="text"
+            class="contentbox"
+            value={this.state.content}
+            onChange={this.handleValueChange}
+          />
+          <br />
+          <button type="submit" class="button">
+            SUBMIT
+          </button>
+        </form>
       </div>
     );
   }

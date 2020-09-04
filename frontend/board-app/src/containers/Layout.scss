@@ -1,0 +1,22 @@
+.Layout {
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  background: whitesmoke;
+
+  .navbar {
+    height: 75px;
+    padding: 1rem;
+    color: white;
+    background: black;
+    font-weight: bold;
+    font-size: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .content {
+    background: whitesmoke;
+  }
+}
