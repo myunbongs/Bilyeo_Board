@@ -1,33 +1,37 @@
-import React, { useState } from "react";
-function SignIn() {
-  const [ID, password, password2] = useState("");
-  const [disabled, setDisabled] = useState(false);
+import React, { Component } from "react";
 
-  const handleChange = ({ target: { value } }) => SignIn(value);
+export default class SignUp extends Component {
+  render() {
+    return (
+      <form>
+        <h3>Sign Up</h3>
 
-  const handleSubmit = async (event) => {
-    setDisabled(true);
-    event.preventDefault();
-    await new Promise((r) => setTimeout(r, 1000));
-    if (password != password2) {
-      alert("패스워드가 같지 않습니다.");
-    } else {
-      alert("회원가입 되었습니다");
-    }
-    setDisabled(false);
-  };
-  return (
-    <form onSubmit={handleSubmit}>
-      <input>
-        type = "ID" name = "ID" value ={ID}
-        type = "password" name = "password" value ={password}
-        type = "password" name = "password2" value ={password2}
-        onChange={handleChange}
-      </input>
-      <button type="submit" disabled={disabled}>
-        회원가입
-      </button>
-    </form>
-  );
+        <div className="form-group">
+          <label>name</label>
+          <input type="text" className="form-control" placeholder="name" />
+        </div>
+
+        <div className="form-group">
+          <label>ID</label>
+          <input type="ID" className="form-control" placeholder="Enter ID" />
+        </div>
+
+        <div className="form-group">
+          <label>Password</label>
+          <input
+            type="password"
+            className="form-control"
+            placeholder="Enter password"
+          />
+        </div>
+
+        <button type="submit" className="btn btn-primary btn-block">
+          Sign Up
+        </button>
+        <p className="forgot-password text-right">
+          Already registered <a href="#">sign in?</a>
+        </p>
+      </form>
+    );
+  }
 }
-export default SignIn;
