@@ -42,14 +42,25 @@ class CreateUserSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("id", "name")
+        fields = ("user_id", "name", "password")
 
 class LoginUserSerializer(serializers.Serializer):
+    user_id = serializers.CharField()
     name = serializers.CharField()
     password = serializers.CharField()
-    
+
     def validate(self, data):
-        user = authenticate(**data)
-        if user and user.is_active:
+        if User.objects.filter(user_id = data['user_id'], password = data['password']).exists() == True :
+            user = User(
+            user_id     = data['user_id'],      #data에 user_id, name, password를 입력
+            name       = data['name'],
+            password    = data['password']
+        )
             return user
         raise serializers.ValidationError("Unable to log in with provided credentials.")
+
+class BoardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Board
+        fields = ('id','create_id', 'title', 'content')
+

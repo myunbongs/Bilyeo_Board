@@ -1,9 +1,10 @@
 from rest_framework import viewsets, permissions, generics
 from boardapp.models import Board, Comment, User, Post
-from .serializers import CommentSerializer, UserSerializer , BoardSerializer, CreateUserSerializer, UserSerializer, LoginUserSerializer
+from .serializers import CommentSerializer, UserSerializer , BoardSerializer, CreateUserSerializer, LoginUserSerializer
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework import filters
+from knox.models import AuthToken
 
 '''
 class UserCreateView(viewsets.ModelViewSet):
@@ -36,18 +37,19 @@ class SignupView(generics.GenericAPIView):
     queryset = User.objects.all()
     serializer_class = CreateUserSerializer
     def post(self, request, *args, **kwargs):
-        if len(request.data["name"]) < 6 or len(request.data["password"]) < 4:
+        if len(request.data["user_id"]) < 6 or len(request.data["password"]) < 4:
             body = {"message": "short field"}
-            return Response(body, status=status.HTTP_400_BAD_REQUEST)
+            return Response(body)
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
+        user.save()
         return Response(
             {
                 "user": UserSerializer(
                     user, context=self.get_serializer_context()
                 ).data,
-                "token": AuthToken.objects.create(user),
+                #"token": AuthToken.objects.create(user)[1],
             }
         )
 
@@ -63,7 +65,7 @@ class LoginView(generics.GenericAPIView):
                 "user": UserSerializer(
                     user, context=self.get_serializer_context()
                 ).data,
-                "token": AuthToken.objects.create(user),
+                #"token": AuthToken.objects.create(user)[1],
             }
         )
 
