@@ -12,7 +12,7 @@ class App extends Component {
         <Router>
           <CustomLayOut>
             <BaseRouter />
-            <CustomForm />
+            {/* <CustomForm /> */}
           </CustomLayOut>
         </Router>
       </div>
