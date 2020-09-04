@@ -1,8 +1,9 @@
 from rest_framework import viewsets, permissions, generics
-from boardapp.models import Board, Comment, User
+from boardapp.models import Board, Comment, User, Post
 from .serializers import CommentSerializer, UserSerializer , BoardSerializer, CreateUserSerializer, UserSerializer, LoginUserSerializer
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.response import Response
+from rest_framework import filters
 
 '''
 class UserCreateView(viewsets.ModelViewSet):
@@ -24,6 +25,8 @@ class CommentCreateView(viewsets.ModelViewSet):
 class BoardListView(ListAPIView):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
+    filter_backends = [filters.SearchFilter]   #추가
+    search_fields = ['title', 'content']       #추가
 
 class BoardDetailView(RetrieveAPIView):
     queryset = Board.objects.all()
@@ -33,7 +36,7 @@ class SignupView(generics.GenericAPIView):
     queryset = User.objects.all()
     serializer_class = CreateUserSerializer
     def post(self, request, *args, **kwargs):
-        if len(request.data["username"]) < 6 or len(request.data["password"]) < 4:
+        if len(request.data["name"]) < 6 or len(request.data["password"]) < 4:
             body = {"message": "short field"}
             return Response(body, status=status.HTTP_400_BAD_REQUEST)
         serializer = self.get_serializer(data=request.data)

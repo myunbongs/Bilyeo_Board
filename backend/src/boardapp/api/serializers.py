@@ -23,22 +23,29 @@ class CommentSerializer(serializers.ModelSerializer):
 class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("user_id", "username", "password")
+        fields = ("user_id", "name", "password")
         extra_kwargs = {"password": {"write_only": True}}
 
-    def create(self, validated_data):
-        user = User.objects.create_user(
-            validated_data["username"], None, validated_data["password"]
+    def create(self, data):
+        user = User(
+            user_id     = data['user_id'],      #data에 user_id, name, password를 입력
+            name       = data['name'],
+            password    = data['password']
         )
+        '''
+        user = User.objects.create_user(
+            validated_data["user_id"], validated_data["name"], validated_data["password"]
+        )
+        '''
         return user
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("id", "username")
+        fields = ("id", "name")
 
 class LoginUserSerializer(serializers.Serializer):
-    username = serializers.CharField()
+    name = serializers.CharField()
     password = serializers.CharField()
     
     def validate(self, data):
