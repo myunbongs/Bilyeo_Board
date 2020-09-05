@@ -14,7 +14,7 @@ class User(models.Model):
     user_id = models.CharField(max_length=50)
     password = models.CharField(max_length=50)
 
-    def __str_(self):
+    def __str__(self):
         return self.user_id
 
 class Post(models.Model):
@@ -22,6 +22,7 @@ class Post(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
     create_id = models.CharField(max_length=50)
+    comment_date = models.DateTimeField('date published')
    
     def __str__(self):
         return self.title
