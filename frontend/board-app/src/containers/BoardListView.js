@@ -1,19 +1,7 @@
 import React from "react";
-import Board from "../components/Board";
 import axios from "axios";
-
-const listData = [];
-for (let i = 0; i < 23; i++) {
-  listData.push({
-    href: "https://ant.design",
-    title: `ant design part ${i}`,
-    avatar: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-    description:
-      "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-    content:
-      "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-  });
-}
+import CustomForm from "../components/Form";
+import { Link } from "react-router-dom";
 
 class BoardList extends React.Component {
   state = {
@@ -29,7 +17,24 @@ class BoardList extends React.Component {
   }
 
   render() {
-    return <Board data={this.state.board} />;
+    const boardID = this.props.match.params.boardID;
+    return (
+      <div>
+        <CustomForm />
+        {this.state.board.map((item) => (
+          <div key={item.id}>
+            <Link
+              style={{ textDecoration: "none", color: "black" }}
+              to={{ pathname: "/" + boardID }}
+            >
+              <h1>title: {item.title}</h1>
+            </Link>
+            <h3>id: {item.id}</h3>
+            <span>content: {item.content}</span>
+          </div>
+        ))}
+      </div>
+    );
   }
 }
 

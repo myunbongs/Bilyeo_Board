@@ -69,18 +69,14 @@ class CustomForm extends React.Component {
             value={this.state.title}
             onChange={this.handleValueChange}
           />
-          <br />
-          CONTENT:{" "}
+          <br /> CONTENT:{" "}
           <input
             type="text"
             class="contentbox"
             value={this.state.content}
             onChange={this.handleValueChange}
           />
-          <br />
-          <button type="submit" class="button">
-            SUBMIT
-          </button>
+          <br /> <button type="submit">SUBMIT</button>
         </form>
       </div>
     );

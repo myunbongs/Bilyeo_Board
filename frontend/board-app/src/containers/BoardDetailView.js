@@ -1,7 +1,5 @@
 import React from "react";
 import axios from "axios";
-import { Card } from "antd";
-import CustomForm from "../components/Form";
 
 class BoardDetail extends React.Component {
   state = {
@@ -19,20 +17,11 @@ class BoardDetail extends React.Component {
 
   render() {
     return (
-      <Card title={this.state.board.title}>
-        <p>{this.state.board.content}</p>
-      </Card>
-      //   if (BoardID == UserID) {
-      //       <Card>
-      //       {
-      //       <CustomForm
-      //         requestType="put"
-      //         boardID={this.props.match.params.boardID}
-      //         btnText="수정하기"
-      //       />
-      //       }
-      //       </Card>
-      //   }
+      <div className="Board">
+        <h1>{this.state.board.title}</h1>
+        <br />
+        <h2>{this.state.board.content}</h2>
+      </div>
     );
   }
 }
