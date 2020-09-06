@@ -1,9 +1,10 @@
 from django.db import models
 
 class Board(models.Model):
-    # id = models.AutoField(primary_key=True)  # PK 자동증가 
+    id = models.AutoField(primary_key=True)  # PK 자동증가 
     title = models.CharField(max_length=120)
     content = models.TextField()
+    create_id = models.CharField(max_length=50)
 
     def __str__(self):
         return self.title
@@ -13,14 +14,16 @@ class User(models.Model):
     user_id = models.CharField(max_length=50)
     password = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.user_id
+
 class Post(models.Model):
-    # id = models.AutoField(primary_key=True)  # PK 자동증가 
+    id = models.AutoField(primary_key=True)  # PK 자동증가 
     title = models.CharField(max_length=200)
     content = models.TextField()
     create_id = models.CharField(max_length=50)
-    create_date = models.DateTimeField('date published')
+    comment_date = models.DateTimeField('date published')
    
-
     def __str__(self):
         return self.title
 
